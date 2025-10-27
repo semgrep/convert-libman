@@ -19,15 +19,15 @@ node convert-libman.js ./libman.json ./output
 # GitHub Actions example
 - name: Convert libman
   run: |
-    docker run -v ${{ github.workspace }}:/convert convert-libman
+    docker run -v ${{ github.workspace }}:/convert ghcr.io/semgrep/convert-libman
 
 # GitLab CI example
 convert-libman:
   script:
-    - docker run -v $PWD:/convert convert-libman
+    - docker run -v $PWD:/convert ghcr.io/semgrep/convert-libman
 ```
 
 ```bash
 # Command line
-docker run -v $(pwd):/convert convert-libman
+docker run -v $(pwd):/convert ghcr.io/semgrep/convert-libman
 ```
