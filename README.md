@@ -2,15 +2,13 @@
 
 Converts `libman.json` to `package.json` with automatic `package-lock.json` generation.
 
-**Arguments:** libman.json path (default: `/convert/libman.json`), output directory (default: `/convert`)
-
 ## Manual Usage
 
 ```bash
 node convert-libman.js [libman.json path] [output directory]
 
 # Example
-node convert-libman.js ./libman.json ./output
+node convert-libman.js ./libman.json ./
 ```
 
 ## Docker CI Usage
