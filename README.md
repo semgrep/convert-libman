@@ -14,6 +14,23 @@ node convert-libman.js
 node convert-libman.js ./projects
 ```
 
+## Local Docker Usage
+
+Pull the Docker image from GitHub Container Registry and run it locally:
+
+```bash
+# Pull the latest image
+docker pull ghcr.io/semgrep/convert-libman
+
+# Run the conversion (scan from current directory)
+docker run --rm -v $(pwd):/convert ghcr.io/semgrep/convert-libman /convert
+
+# Run the conversion (scan from a specific directory)
+docker run --rm -v /path/to/your/project:/convert ghcr.io/semgrep/convert-libman /convert
+```
+
+The `--rm` flag automatically removes the container after it exits.
+
 ## Docker CI Usage
 
 ```yaml
