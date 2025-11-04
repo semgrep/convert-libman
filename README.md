@@ -1,14 +1,17 @@
 # convert-libman
 
-Converts `libman.json` to `package.json` with automatic `package-lock.json` generation.
+Recursively searches for `libman.json` files and converts each to `package.json` with automatic `package-lock.json` generation. The generated files are created in the same directory as each discovered `libman.json` file.
 
 ## Manual Usage
 
 ```bash
-node convert-libman.js [libman.json path] [output directory]
+node convert-libman.js [root directory]
 
-# Example
-node convert-libman.js ./libman.json ./
+# Example: scan from current directory
+node convert-libman.js
+
+# Example: scan from a specific directory
+node convert-libman.js ./projects
 ```
 
 ## Docker CI Usage
@@ -17,17 +20,17 @@ node convert-libman.js ./libman.json ./
 # GitHub Actions example
 - name: Convert libman
   run: |
-    docker run -v ${{ github.workspace }}:/convert ghcr.io/semgrep/convert-libman
+    docker run -v ${{ github.workspace }}:/convert ghcr.io/semgrep/convert-libman /convert
 
 # GitLab CI example
 convert-libman:
   script:
-    - docker run -v $PWD:/convert ghcr.io/semgrep/convert-libman
+    - docker run -v $PWD:/convert ghcr.io/semgrep/convert-libman /convert
 ```
 
 ```bash
 # Command line
-docker run -v $(pwd):/convert ghcr.io/semgrep/convert-libman
+docker run -v $(pwd):/convert ghcr.io/semgrep/convert-libman /convert
 ```
 
 ## GitHub Actions Usage
@@ -55,7 +58,7 @@ jobs:
 
       - name: Convert libman
         run: |
-          docker run -v "${{ github.workspace }}:/convert" ghcr.io/semgrep/convert-libman
+          docker run -v "${{ github.workspace }}:/convert" ghcr.io/semgrep/convert-libman /convert
 
       - name: Commit updated package files (if any)
         run: |
