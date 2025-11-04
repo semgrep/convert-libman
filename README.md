@@ -5,7 +5,7 @@ Recursively searches for `libman.json` files and converts each to `package.json`
 ## Manual Usage
 
 ```bash
-node convert-libman.js [root directory]
+node convert-libman.js [path to directory to be scanned]
 
 # Example: scan from current directory
 node convert-libman.js
@@ -23,13 +23,11 @@ Pull the Docker image from GitHub Container Registry and run it locally:
 docker pull ghcr.io/semgrep/convert-libman
 
 # Run the conversion (scan from current directory)
-docker run --rm -v $(pwd):/convert ghcr.io/semgrep/convert-libman /convert
+docker run --rm -v $(pwd):/convert ghcr.io/semgrep/convert-libman
 
-# Run the conversion (scan from a specific directory)
-docker run --rm -v /path/to/your/project:/convert ghcr.io/semgrep/convert-libman /convert
+# Run the conversion (scan from a specific subdirectory)
+docker run --rm -v $(pwd):/convert ghcr.io/semgrep/convert-libman /convert/some/subdirectory
 ```
-
-The `--rm` flag automatically removes the container after it exits.
 
 ## Docker CI Usage
 
@@ -37,17 +35,17 @@ The `--rm` flag automatically removes the container after it exits.
 # GitHub Actions example
 - name: Convert libman
   run: |
-    docker run -v ${{ github.workspace }}:/convert ghcr.io/semgrep/convert-libman /convert
+    docker run -v ${{ github.workspace }}:/convert ghcr.io/semgrep/convert-libman
 
 # GitLab CI example
 convert-libman:
   script:
-    - docker run -v $PWD:/convert ghcr.io/semgrep/convert-libman /convert
+    - docker run -v $PWD:/convert ghcr.io/semgrep/convert-libman
 ```
 
 ```bash
 # Command line
-docker run -v $(pwd):/convert ghcr.io/semgrep/convert-libman /convert
+docker run -v $(pwd):/convert ghcr.io/semgrep/convert-libman
 ```
 
 ## GitHub Actions Usage
@@ -75,7 +73,7 @@ jobs:
 
       - name: Convert libman
         run: |
-          docker run -v "${{ github.workspace }}:/convert" ghcr.io/semgrep/convert-libman /convert
+          docker run -v "${{ github.workspace }}:/convert" ghcr.io/semgrep/convert-libman
 
       - name: Commit updated package files (if any)
         run: |
